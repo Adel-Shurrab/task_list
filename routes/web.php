@@ -14,7 +14,7 @@ Route::get('/about', function () {
 });
 
 Route::get('/tasks', function () {
-    $tasks = DB::table('tasks')->orderBy('created_at', 'desc')->get();
+    $tasks = DB::table('tasks')->get();
 
     return view('tasks', compact('tasks'));
 });
@@ -30,7 +30,13 @@ Route::post('/create', function (Request $request) {
         'updated_at' => now(),
     ]);
 
-    return redirect('/tasks')->with('success', 'Task created successfully.');
+    return redirect('tasks')->with('success', 'Task created successfully.');
+});
+
+Route::post('/delete/{id}', function (int $id) {
+    DB::table('tasks')->where('id', $id)->delete();
+
+    return redirect()->back()->with('success', 'Task deleted successfully.');
 });
 
 Route::get('/form', [FormController::class, 'show'])->name('form.show');

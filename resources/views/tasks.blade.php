@@ -43,6 +43,7 @@
                                     <th>#</th>
                                     <th>Task</th>
                                     <th>Created</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,6 +52,14 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $task->name }}</td>
                                         <td>{{ \Illuminate\Support\Carbon::parse($task->created_at)->diffForHumans() }}</td>
+                                        <td>
+                                            <form method="POST" action="/delete/{{ $task->id }}" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this task?')">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
