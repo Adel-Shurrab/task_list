@@ -49,6 +49,9 @@
                         <a class="nav-link" href="{{ url('/tasks') }}">Tasks</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/users') }}">Users</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('form.show') }}">Form Demo</a>
                     </li>
                     <li class="nav-item">
