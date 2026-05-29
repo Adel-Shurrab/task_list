@@ -19,6 +19,33 @@ Route::get('/tasks', function () {
     return view('tasks', compact('tasks'));
 });
 
+Route::get('/edit/{id}', function (int $id) {
+    $tasks = DB::table('tasks')->get();
+    $task = DB::table('tasks')->where('id', $id)->first();
+
+    if (!$task) {
+        abort(404);
+    }
+
+    return view('tasks', compact('tasks', 'task'));
+});
+
+Route::post('/update', function (Request $request) {
+    $request->validate([
+        'id' => 'required|integer|exists:tasks,id',
+        'name' => 'required|string|max:255',
+    ]);
+
+    DB::table('tasks')
+        ->where('id', $request->input('id'))
+        ->update([
+            'name' => $request->input('name'),
+            'updated_at' => now(),
+        ]);
+
+    return redirect('/tasks')->with('success', 'Task updated successfully.');
+});
+
 Route::post('/create', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
