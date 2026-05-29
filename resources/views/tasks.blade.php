@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ isset($task) ? '/update' : '/create' }}">
+                    <form method="POST" action="{{ isset($task) ? '/update/' . $task->id : '/create' }}">
                         @csrf
                         @if(isset($task))
                             <input type="hidden" name="id" value="{{ $task->id }}">
